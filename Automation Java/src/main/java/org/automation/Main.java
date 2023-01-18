@@ -11,5 +11,7 @@ public class Main {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://www.wikipedia.org/");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.quit();
     }
 }
