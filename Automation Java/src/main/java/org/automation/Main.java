@@ -9,7 +9,7 @@ import java.time.Duration;
 import static java.lang.System.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         WebDriver driver = new ChromeDriver();
         setProperty("webdriver.chrome.driver", "chromedriver.exe");
 
@@ -19,7 +19,23 @@ public class Main {
 
         driver.findElement(By.id("js-link-box-en")).click();
 
-        out.println(driver.findElement(By.id("Welcome_to_Wikipedia")).getText());
+        String text = driver.findElement(By.id("Welcome_to_Wikipedia")).getText();
+
+        System.out.println("title: "+driver.getTitle());
+        if(text.equalsIgnoreCase("Welcome to Wikipedia")) {
+            System.out.println("Passed");
+        } else {
+            driver.close();
+        }
+
+        if(driver.getTitle().equals("Wikipedia, the free encyclopedia")) {
+            System.out.println("Reached English wikipedia page");
+        } else {
+            driver.quit();
+            throw new Exception("Not passed");
+        }
+
         driver.quit();
+
     }
 }
